@@ -4,45 +4,30 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
 
 import com.example.taskmanager.R;
-import com.example.taskmanager.activity.AlarmActivity;
 import com.example.taskmanager.activity.MainActivity;
-import com.example.taskmanager.broadcastReciever.AlarmBroadcastReciever;
+import com.example.taskmanager.broadcastReciever.AlarmBroadcastReceiver;
 import com.example.taskmanager.database.DatabaseClient;
 import com.example.taskmanager.model.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.zubair.alarmmanager.builder.AlarmBuilder;
-import com.zubair.alarmmanager.enums.AlarmType;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +56,11 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
     int mYear, mMonth, mDay;
     int mHour, mMinute;
     setRefreshListener setRefreshListener;
+    // AlarmManager — это специальный системный сервис,
+    // позволяющий выполнить пользовательский код
+    // в определенный момент времени. Этот менеджер
+    // является частью системы Андроид, постоянно
+    // находится в памяти и бдит за временем и задачами
     AlarmManager alarmManager;
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
@@ -98,6 +88,9 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
         this.setRefreshListener = setRefreshListener;
     }
 
+    // @RequiresApi Указывает, что аннотированный элемент следует вызывать
+    // только на данном уровне API или выше.
+    // @SuppressLint("ClickableViewAccessibility") для подавления предупреждения
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"RestrictedApi", "ClickableViewAccessibility"})
     @Override
@@ -115,6 +108,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             showTaskFromId();
         }
 
+        // Для выбора пользователем даты для задачи
         taskDate.setOnTouchListener((view, motionEvent) -> {
             if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 final Calendar c = Calendar.getInstance();
@@ -132,6 +126,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             return true;
         });
 
+        // Для выбора пользователем времени для задачи
         taskTime.setOnTouchListener((view, motionEvent) -> {
             if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 // Get Current Time
@@ -151,25 +146,26 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
         });
     }
 
+    // Проверка на правильность ввода
     public boolean validateFields() {
         if(addTaskTitle.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Please enter a valid title", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Пожалуйста, введите правильный заголовок", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(addTaskDescription.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Please enter a valid description", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Пожалуйста, введите корректное описание", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(taskDate.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Please enter date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Пожалуйста, введите дату", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(taskTime.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Please enter time", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Пожалуйста, введите время", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(taskEvent.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Please enter an event", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Пожалуйста, введите событие", Toast.LENGTH_SHORT).show();
             return false;
         }
         else {
@@ -226,9 +222,11 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
         st.execute();
     }
 
+    // Метод для создания будильника
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void createAnAlarm() {
         try {
+            // Получаем данные и заносим их в массив
             String[] items1 = taskDate.getText().toString().split("-");
             String dd = items1[0];
             String month = items1[1];
@@ -248,7 +246,8 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             cal.set(Calendar.MILLISECOND, 0);
             cal.set(Calendar.DATE, Integer.parseInt(dd));
 
-            Intent alarmIntent = new Intent(activity, AlarmBroadcastReciever.class);
+            // В alarmIntent прописываем активити, которое хотим вызвать
+            Intent alarmIntent = new Intent(activity, AlarmBroadcastReceiver.class);
             alarmIntent.putExtra("TITLE", addTaskTitle.getText().toString());
             alarmIntent.putExtra("DESC", addTaskDescription.getText().toString());
             alarmIntent.putExtra("DATE", taskDate.getText().toString());

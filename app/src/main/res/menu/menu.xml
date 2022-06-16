@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuUpdate"
-        android:title="обновить"
+        android:title="Редактировать"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuComplete"

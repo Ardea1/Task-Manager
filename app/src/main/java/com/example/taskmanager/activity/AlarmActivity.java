@@ -21,7 +21,7 @@ public class AlarmActivity extends BaseActivity {
     @BindView(R.id.imageView)
     ImageView imageView;
     @BindView(R.id.title2)
-    TextView title;
+    TextView title2;
     @BindView(R.id.description)
     TextView description;
     @BindView(R.id.timeAndData)
@@ -44,7 +44,7 @@ public class AlarmActivity extends BaseActivity {
         mediaPlayer.start();
 
         if(getIntent().getExtras() != null) {
-            title.setText(getIntent().getStringExtra("TITLE"));
+            title2.setText(getIntent().getStringExtra("TITLE"));
             description.setText(getIntent().getStringExtra("DESC"));
             timeAndData.setText(getIntent().getStringExtra("DATE") + ", " + getIntent().getStringExtra("TIME"));
         }

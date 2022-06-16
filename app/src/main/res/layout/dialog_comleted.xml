@@ -41,7 +41,7 @@
                 android:background="@drawable/check_mark_png_image_file" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="332dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
@@ -62,7 +62,7 @@
                 android:layout_marginBottom="30dp"
                 android:background="@android:drawable/editbox_dropdown_dark_frame"
                 android:fontFamily="@font/electrolize"
-                android:text="Done"
+                android:text="Ок"
                 android:textAllCaps="false"
                 android:textColor="#FF9800"
                 android:textSize="14sp" />

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#2A2A2A"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.AlarmActivity">
 
     <ImageView
@@ -18,7 +17,7 @@
 
     <TextView
         android:id="@+id/title2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
@@ -28,7 +27,7 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
@@ -38,7 +37,7 @@
 
     <TextView
         android:id="@+id/timeAndData"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
@@ -55,7 +54,7 @@
         android:layout_marginRight="30dp"
         android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:fontFamily="@font/electrolize"
-        android:text="Close"
+        android:text="Закрыть"
         android:textAllCaps="false"
         android:textColor="#FF9800"
         android:textSize="14sp" />

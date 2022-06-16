@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#2A2A2A"
-    android:orientation="vertical">
-
-    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         app:cardBackgroundColor="#2A2A2A"
@@ -139,7 +133,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="5dp"
-                    android:text="COMPLETED"
+                    android:text="ВЫПОЛНЕНО"
                     android:textColor="#FF9800"
                     android:textSize="12sp" />
 
@@ -147,4 +141,3 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-</LinearLayout>

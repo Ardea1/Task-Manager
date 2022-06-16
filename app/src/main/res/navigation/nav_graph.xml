@@ -3,26 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/mainActivity2">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.taskmanager.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/dialog_comleted">
-
+    <dialog
+        android:id="@+id/createTaskBottom2"
+        android:name="com.example.taskmanager.bottomSheetFragment.CreateTaskBottom"
+        android:label="CreateTaskBottom"
+        tools:layout="@layout/fragment_create_task">
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.taskmanager.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_calendar">
-
+            android:id="@+id/action_createTaskBottom2_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+    </dialog>
+    <dialog
+        android:id="@+id/mainActivity2"
+        android:name="com.example.taskmanager.activity.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+            android:id="@+id/action_mainActivity2_to_createTaskBottom2"
+            app:destination="@id/createTaskBottom2" />
+        <action
+            android:id="@+id/action_mainActivity2_to_alarmActivity"
+            app:destination="@id/alarmActivity" />
+    </dialog>
+    <activity
+        android:id="@+id/alarmActivity"
+        android:name="com.example.taskmanager.activity.AlarmActivity"
+        android:label="activity_alarm"
+        tools:layout="@layout/activity_alarm" />
 </navigation>

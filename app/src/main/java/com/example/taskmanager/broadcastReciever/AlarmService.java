@@ -9,6 +9,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+// IBinder - интерфейс обратного вызова
+// для связи сервиса и приложения.
 import android.os.IBinder;
 import android.util.Log;
 
@@ -44,10 +46,10 @@ public class AlarmService extends Service {
             mNotificationManager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "YOUR_CHANNEL_ID")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle("title") // title for notification
-                .setContentText("Message")// message for notification
-                .setAutoCancel(true); // clear notification after click
+                .setSmallIcon(R.mipmap.ic_launcher) // значок уведомления
+                .setContentTitle("title") // заголовок для уведомления
+                .setContentText("Message")// сообщение для уведомления
+                .setAutoCancel(true); // очистить уведомление после клика
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);

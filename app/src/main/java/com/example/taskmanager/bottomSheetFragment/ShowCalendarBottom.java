@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+// Класс отвечает за отображение календаря, задач в нём
 public class ShowCalendarBottom extends BottomSheetDialogFragment {
 
     Unbinder unbinder;
@@ -39,7 +40,7 @@ public class ShowCalendarBottom extends BottomSheetDialogFragment {
     CalendarView calendarView;
     List<Task> tasks = new ArrayList<>();
 
-
+    // Календарь будет отображён внизу страницы
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
         @Override
@@ -54,6 +55,9 @@ public class ShowCalendarBottom extends BottomSheetDialogFragment {
         }
     };
 
+    // @RequiresApi Указывает, что аннотированный элемент следует вызывать
+    // только на данном уровне API или выше.
+    // @SuppressLint("ClickableViewAccessibility") для подавления предупреждения
     @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint({"RestrictedApi", "ClickableViewAccessibility"})
     @Override
@@ -72,6 +76,7 @@ public class ShowCalendarBottom extends BottomSheetDialogFragment {
         super.onDestroyView();
     }
 
+    // Получает сохранённые задачи
     private void getSavedTasks() {
 
         class GetSavedTasks extends AsyncTask<Void, Void, List<Task>> {

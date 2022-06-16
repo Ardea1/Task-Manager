@@ -30,6 +30,7 @@ public class Task implements Serializable {
     @ColumnInfo(name = "event")
     String event;
 
+    // Конструктор класса Task
     public Task() {
 
     }

@@ -35,6 +35,8 @@ import butterknife.ButterKnife;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     private MainActivity context;
+    // LayoutInflater – это класс, который умеет из содержимого layout-файла
+    // создать View-элемент. Метод который это делает называется inflate.
     private LayoutInflater inflater;
     private List<Task> taskList;
     public SimpleDateFormat dateFormat = new SimpleDateFormat("EE dd MMM yyyy", Locale.US);
@@ -50,6 +52,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    // Данный метод вызывается LayoutManager‘ом, чтобы создать объекты
+    // viewHolder и передать им макет, по которому будут отображаться элементы списка
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -57,13 +61,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return new TaskViewHolder(view);
     }
 
+    // Данный метод вызывается LayoutManager‘ом, чтобы привязать
+    // к объекту viewHolder данные, которые он должен отображать
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.title.setText(task.getTaskTitle());
         holder.description.setText(task.getTaskDescrption());
         holder.time.setText(task.getLastAlarm());
-        holder.status.setText(task.isComplete() ? "COMPLETED" : "UPCOMING");
+        holder.status.setText(task.isComplete() ? "ВЫПОЛНЕНО" : "В ПРОЦЕССЕ");
         holder.options.setOnClickListener(view -> showPopUpMenu(view, position));
 
         try {
@@ -84,6 +90,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         }
     }
 
+    // PopupMenu (также называемое контекстным меню) — это меню, привязанное к определенному представлению
     public void showPopUpMenu(View view, int position) {
         final Task task = taskList.get(position);
         PopupMenu popupMenu = new PopupMenu(context, view);
@@ -115,6 +122,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         popupMenu.show();
     }
 
+    // Метод, показывающий диалог о завершении задачи
     public void showCompleteDialog(int taskId, int position) {
         Dialog dialog = new Dialog(context, R.style.AppTheme);
         dialog.setContentView(R.layout.dialog_comleted);
@@ -127,7 +135,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         dialog.show();
     }
 
-
+    // Метод для удаления задачи из БД
     private void deleteTaskFromId(int taskId, int position) {
         class GetSavedTasks extends AsyncTask<Void, Void, List<Task>> {
             @Override
@@ -157,6 +165,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         notifyItemRangeChanged(position, taskList.size());
     }
 
+    // Возвращает общее количество элементов в списке
     @Override
     public int getItemCount() {
         return taskList.size();

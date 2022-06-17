@@ -245,8 +245,6 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
             cal.set(Calendar.DATE, Integer.parseInt(dd));
-            cal.set(Calendar.DATE, Integer.parseInt(month));
-            cal.set(Calendar.DATE, Integer.parseInt(year));
 
             // В alarmIntent прописываем активити, которое хотим вызвать
             Intent alarmIntent = new Intent(activity, AlarmBroadcastReceiver.class);
@@ -254,7 +252,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             alarmIntent.putExtra("DESC", addTaskDescription.getText().toString());
             alarmIntent.putExtra("DATE", taskDate.getText().toString());
             alarmIntent.putExtra("TIME", taskTime.getText().toString());
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(activity,count, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

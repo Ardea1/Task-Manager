@@ -11,10 +11,12 @@ import android.content.Intent;
 import android.media.AudioManager;
 // IBinder - интерфейс обратного вызова
 // для связи сервиса и приложения.
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -23,6 +25,7 @@ import com.example.taskmanager.activity.AlarmActivity;
 import com.example.taskmanager.activity.MainActivity;
 
 public class AlarmService extends Service {
+
     private static final int NOTIFICATION_ID = 3;
 
     public AlarmService(String name) {
@@ -46,10 +49,10 @@ public class AlarmService extends Service {
             mNotificationManager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "YOUR_CHANNEL_ID")
-                .setSmallIcon(R.mipmap.ic_launcher) // значок уведомления
-                .setContentTitle("title") // заголовок для уведомления
-                .setContentText("Message")// сообщение для уведомления
-                .setAutoCancel(true); // очистить уведомление после клика
+                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                .setContentTitle("title") // title for notification
+                .setContentText("Message")// message for notification
+                .setAutoCancel(true); // clear notification after click
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);

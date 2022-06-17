@@ -34,5 +34,13 @@
         <action
             android:id="@+id/action_mainActivity2_to_ShowTask"
             app:destination="@id/ShowTask" />
+        <action
+            android:id="@+id/action_mainActivity2_to_alarmActivity"
+            app:destination="@id/alarmActivity" />
     </dialog>
+    <activity
+        android:id="@+id/alarmActivity"
+        android:name="com.example.taskmanager.activity.AlarmActivity"
+        android:label="activity_alarm"
+        tools:layout="@layout/activity_alarm" />
 </navigation>

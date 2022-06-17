@@ -26,33 +26,56 @@ import androidx.annotation.RequiresApi;
 
 import com.example.taskmanager.R;
 import com.example.taskmanager.activity.MainActivity;
+import com.example.taskmanager.adapter.TaskAdapter;
 import com.example.taskmanager.database.DatabaseClient;
 import com.example.taskmanager.model.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+
 // Класс отвечает за отображение задачи, задач в нём
 public class ShowTask extends BottomSheetDialogFragment {
 
-    View mView;
     int taskId;
     boolean isEdit;
     Task task;
-    int mYear, mMonth, mDay;
-    int mHour, mMinute;
     CreateTaskBottom.setRefreshListener setRefreshListener;
     MainActivity activity;
     Unbinder unbinder;
 
-    List<Task> tasks = new ArrayList<>();
+    @BindView(R.id.dayTask)
+    TextView day;
+    @BindView(R.id.dateTask)
+    TextView date;
+    @BindView(R.id.monthTask)
+    TextView month;
+    @BindView(R.id.titleTask)
+    TextView title;
+    @BindView(R.id.descriptionTask)
+    TextView description;
+    @BindView(R.id.timeTask)
+    TextView time;
+
+    @BindView(R.id.back)
+    ImageView back;
+
+    public SimpleDateFormat dateFormat = new SimpleDateFormat("EE dd MMM yyyy", Locale.US);
+    public SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-M-yyyy", Locale.US);
+    Date date1 = null;
+    String outputDateString = null;
+
     // Блок с заданием будет отображён внизу страницы
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -87,6 +110,7 @@ public class ShowTask extends BottomSheetDialogFragment {
         unbinder = ButterKnife.bind(this, contentView);
         dialog.setContentView(contentView);
         showTaskFromId();
+        back.setOnClickListener(view -> dialog.dismiss());
     }
 
     @Override
@@ -107,10 +131,34 @@ public class ShowTask extends BottomSheetDialogFragment {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                setDataInUI();
             }
         }
         showTaskFromId st = new showTaskFromId();
         st.execute();
+    }
+
+    private void setDataInUI() {
+
+        try {
+        date1 = inputDateFormat.parse(task.getDate());
+        outputDateString = dateFormat.format(date1);
+
+        title.setText(task.getTaskTitle());
+        description.setText(task.getTaskDescrption());
+        date.setText(task.getDate());
+        time.setText(task.getLastAlarm());
+
+        String[] items1 = outputDateString.split(" ");
+        String day1 = items1[0];
+        String month1 = items1[2];
+
+        day.setText(day1);
+        month.setText(month1);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public interface setRefreshListener {

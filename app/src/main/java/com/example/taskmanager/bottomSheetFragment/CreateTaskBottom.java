@@ -245,6 +245,8 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
             cal.set(Calendar.DATE, Integer.parseInt(dd));
+            cal.set(Calendar.DATE, Integer.parseInt(month));
+            cal.set(Calendar.DATE, Integer.parseInt(year));
 
             // В alarmIntent прописываем активити, которое хотим вызвать
             Intent alarmIntent = new Intent(activity, AlarmBroadcastReceiver.class);

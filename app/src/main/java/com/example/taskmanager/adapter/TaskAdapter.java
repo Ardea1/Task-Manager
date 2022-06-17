@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.taskmanager.R;
 import com.example.taskmanager.activity.MainActivity;
 import com.example.taskmanager.bottomSheetFragment.CreateTaskBottom;
+import com.example.taskmanager.bottomSheetFragment.ShowTask;
 import com.example.taskmanager.database.DatabaseClient;
 import com.example.taskmanager.model.Task;
 
@@ -44,11 +46,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     Date date = null;
     String outputDateString = null;
     CreateTaskBottom.setRefreshListener setRefreshListener;
+    ShowTask.setRefreshListener setRefreshListener2;
 
-    public TaskAdapter(MainActivity context, List<Task> taskList,  CreateTaskBottom.setRefreshListener setRefreshListener) {
+    public TaskAdapter(MainActivity context, List<Task> taskList,  CreateTaskBottom.setRefreshListener setRefreshListener, ShowTask.setRefreshListener setRefreshListener2) {
         this.context = context;
         this.taskList = taskList;
         this.setRefreshListener = setRefreshListener;
+        this.setRefreshListener2 = setRefreshListener2;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -58,6 +62,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = inflater.inflate(R.layout.item_task, viewGroup, false);
+        return new TaskViewHolder(view);
+    }
+
+    @NonNull
+    public TaskViewHolder onCreateViewHolder2(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = inflater.inflate(R.layout.fragment_task, viewGroup, false);
         return new TaskViewHolder(view);
     }
 
@@ -71,6 +81,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.time.setText(task.getLastAlarm());
         holder.status.setText(task.isComplete() ? "ВЫПОЛНЕНО" : "В ПРОЦЕССЕ");
         holder.options.setOnClickListener(view -> showPopUpMenu(view, position));
+        holder.title.setOnClickListener(view -> showTask(view, position));
 
         try {
             date = inputDateFormat.parse(task.getDate());
@@ -122,6 +133,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         popupMenu.show();
     }
 
+    // Показывает подробности о задаче
+    public void showTask(View view, int position) {
+        final Task task = taskList.get(position);
+        ShowTask showTaskFragment = new ShowTask();
+        showTaskFragment.setTaskId(task.getTaskId(), true, context, context);
+        showTaskFragment.show(context.getSupportFragmentManager(), showTaskFragment.getTag());
+    }
+
     // Метод, показывающий диалог о завершении задачи
     public void showCompleteDialog(int taskId, int position) {
         Dialog dialog = new Dialog(context, R.style.AppTheme);
@@ -153,6 +172,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 super.onPostExecute(tasks);
                 removeAtPosition(position);
                 setRefreshListener.refresh();
+                setRefreshListener2.refresh();
             }
         }
         GetSavedTasks savedTasks = new GetSavedTasks();

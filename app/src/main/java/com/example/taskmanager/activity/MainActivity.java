@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.example.taskmanager.R;
 import com.example.taskmanager.adapter.TaskAdapter;
 import com.example.taskmanager.bottomSheetFragment.CreateTaskBottom;
 import com.example.taskmanager.bottomSheetFragment.ShowCalendarBottom;
+import com.example.taskmanager.bottomSheetFragment.ShowTask;
 import com.example.taskmanager.broadcastReciever.AlarmBroadcastReceiver;
 import com.example.taskmanager.database.DatabaseClient;
 import com.example.taskmanager.model.Task;
@@ -36,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements CreateTaskBottom.setRefreshListener {
+public class MainActivity extends BaseActivity implements CreateTaskBottom.setRefreshListener, ShowTask.setRefreshListener {
 
     @BindView(R.id.taskRecycler)
     RecyclerView taskRecycler;
@@ -73,18 +75,18 @@ public class MainActivity extends BaseActivity implements CreateTaskBottom.setRe
             createTaskBottomSheetFragment.show(getSupportFragmentManager(), createTaskBottomSheetFragment.getTag());
         });
 
-        getSavedTasks();
-
         calendar.setOnClickListener(view -> {
             ShowCalendarBottom showCalendarViewBottomSheet = new ShowCalendarBottom();
             showCalendarViewBottomSheet.show(getSupportFragmentManager(), showCalendarViewBottomSheet.getTag());
         });
+
+        getSavedTasks();
     }
 
     // Метод который создает адаптер и сетит туда данные
     // из нашей БД с помощью контроллера.
     public void setUpAdapter() {
-        taskAdapter = new TaskAdapter(this, tasks, this);
+        taskAdapter = new TaskAdapter(this, tasks, this, this);
         taskRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         taskRecycler.setAdapter(taskAdapter);
     }

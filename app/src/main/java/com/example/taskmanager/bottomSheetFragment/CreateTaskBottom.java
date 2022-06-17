@@ -213,7 +213,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
                     createAnAlarm();
                 }
                 setRefreshListener.refresh();
-                Toast.makeText(getActivity(), "Your event is been added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Ваше событие добавлено", Toast.LENGTH_SHORT).show();
                 dismiss();
 
             }

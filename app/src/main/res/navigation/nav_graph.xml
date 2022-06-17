@@ -15,6 +15,15 @@
             app:destination="@id/mainActivity2" />
     </dialog>
     <dialog
+        android:id="@+id/ShowTask"
+        android:name="com.example.taskmanager.bottomSheetFragment.ShowTask"
+        android:label="ShowTask"
+        tools:layout="@layout/fragment_task">
+        <action
+            android:id="@+id/action_ShowTask_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+    </dialog>
+    <dialog
         android:id="@+id/mainActivity2"
         android:name="com.example.taskmanager.activity.MainActivity"
         android:label="activity_main"
@@ -23,12 +32,7 @@
             android:id="@+id/action_mainActivity2_to_createTaskBottom2"
             app:destination="@id/createTaskBottom2" />
         <action
-            android:id="@+id/action_mainActivity2_to_alarmActivity"
-            app:destination="@id/alarmActivity" />
+            android:id="@+id/action_mainActivity2_to_ShowTask"
+            app:destination="@id/ShowTask" />
     </dialog>
-    <activity
-        android:id="@+id/alarmActivity"
-        android:name="com.example.taskmanager.activity.AlarmActivity"
-        android:label="activity_alarm"
-        tools:layout="@layout/activity_alarm" />
 </navigation>

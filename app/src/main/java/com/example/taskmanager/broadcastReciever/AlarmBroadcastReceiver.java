@@ -1,24 +1,10 @@
 package com.example.taskmanager.broadcastReciever;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.widget.Toast;
 
-
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import com.example.taskmanager.R;
 import com.example.taskmanager.activity.AlarmActivity;
-import com.example.taskmanager.activity.MainActivity;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 // Broadcast Receiver - это механизм для отсылки и получения сообщений в Android
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
@@ -40,4 +26,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
     }
+
+
 }

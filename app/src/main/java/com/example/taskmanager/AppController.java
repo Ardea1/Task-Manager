@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.inflationx.viewpump.ViewPump;
 
-// Класс контроллера приложения предоставляет нам возможность выполнять запросы GET и POST
-// в очереди с назначенными им параметрами
 public class AppController extends Application implements ComponentCallbacks2 {
 
     private static AppController mInstance;

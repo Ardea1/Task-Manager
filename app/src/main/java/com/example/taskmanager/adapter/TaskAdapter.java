@@ -64,12 +64,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return new TaskViewHolder(view);
     }
 
-    @NonNull
-    public TaskViewHolder onCreateViewHolder2(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = inflater.inflate(R.layout.fragment_task, viewGroup, false);
-        return new TaskViewHolder(view);
-    }
-
     // Данный метод вызывается LayoutManager‘ом, чтобы привязать
     // к объекту viewHolder данные, которые он должен отображать
     @Override

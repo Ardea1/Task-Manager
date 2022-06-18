@@ -21,7 +21,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.taskmanager.R;
-import com.example.taskmanager.activity.AlarmActivity;
 import com.example.taskmanager.activity.MainActivity;
 
 public class AlarmService extends Service {
@@ -49,17 +48,15 @@ public class AlarmService extends Service {
             mNotificationManager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "YOUR_CHANNEL_ID")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle("title") // title for notification
-                .setContentText("Message")// message for notification
-                .setAutoCancel(true); // clear notification after click
+                .setSmallIcon(R.mipmap.ic_launcher) // значок уведомления
+                .setContentTitle("title") // заголовок для уведомления
+                .setContentText("Message")// сообщение для уведомления
+                .setAutoCancel(true); // очистить уведомление после клика
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mNotificationManager.notify(0, mBuilder.build());
     }
-
-    public AlarmService(){}
 
     @Nullable
     @Override

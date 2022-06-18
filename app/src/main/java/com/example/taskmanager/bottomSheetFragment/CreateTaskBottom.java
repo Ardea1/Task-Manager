@@ -4,30 +4,45 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 import com.example.taskmanager.R;
+import com.example.taskmanager.activity.AlarmActivity;
 import com.example.taskmanager.activity.MainActivity;
 import com.example.taskmanager.broadcastReciever.AlarmBroadcastReceiver;
 import com.example.taskmanager.database.DatabaseClient;
 import com.example.taskmanager.model.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.zubair.alarmmanager.builder.AlarmBuilder;
+import com.zubair.alarmmanager.enums.AlarmType;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 // Подробный обзор возможностей ButterKnife https://startandroid.ru/ru/blog/470-butter-knife.html
@@ -179,6 +194,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
         super.onDestroyView();
     }
 
+    // Создаём задачу и заносим в базу данных
     private void createTask() {
         class saveTaskInBackend extends AsyncTask<Void, Void, Void> {
             @SuppressLint("WrongThread")
@@ -207,6 +223,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
                 return null;
             }
 
+            // Пользователь увидит уведомление, что он добавил событие
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
@@ -247,23 +264,27 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             cal.set(Calendar.MILLISECOND, 0);
             cal.set(Calendar.DATE, Integer.parseInt(dd));
 
-            // В alarmIntent прописываем активити, которое хотим вызвать
             Intent alarmIntent = new Intent(activity, AlarmBroadcastReceiver.class);
             alarmIntent.putExtra("TITLE", addTaskTitle.getText().toString());
             alarmIntent.putExtra("DESC", addTaskDescription.getText().toString());
             alarmIntent.putExtra("DATE", taskDate.getText().toString());
             alarmIntent.putExtra("TIME", taskTime.getText().toString());
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // Объект PendingIntent, определяющий действие, выполняемое при запуске сигнализации
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Аналогично #set, но этому сигналу тревоги будет разрешено выполняться, даже когда система
+                // находится в режиме ожидания с низким энергопотреблением
                 alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    // setExact() - в API 19 (Kitkat) метод set() заменили на новый метод с теми же параметрами
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                 } else {
+                    // set() - задаёт одноразовую сигнализацию
                     alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                 }
                 count ++;
 
-                PendingIntent intent = PendingIntent.getBroadcast(activity, count, alarmIntent, 0);
+                PendingIntent intent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

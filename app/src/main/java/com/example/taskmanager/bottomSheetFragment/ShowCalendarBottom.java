@@ -101,6 +101,7 @@ public class ShowCalendarBottom extends BottomSheetDialogFragment {
         savedTasks.execute();
     }
 
+    // Для выделения цветом дней
     public List<EventDay> getHighlitedDays() {
         List<EventDay> events = new ArrayList<>();
 

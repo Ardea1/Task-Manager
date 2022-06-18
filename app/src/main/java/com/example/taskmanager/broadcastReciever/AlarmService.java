@@ -59,6 +59,8 @@ public class AlarmService extends Service {
         mNotificationManager.notify(0, mBuilder.build());
     }
 
+    public AlarmService(){}
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

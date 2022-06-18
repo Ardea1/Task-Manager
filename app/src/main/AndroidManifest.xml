@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskManager">
-        <activity android:name=".activity.AlarmActivity"></activity>
-        <activity
-            android:name=".activity.MainActivity"
+        <activity android:name=".activity.AlarmActivity">
+        </activity>
+        <activity android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,16 +25,24 @@
         </activity>
 
         <receiver android:name=".broadcastReciever.AlarmBroadcastReceiver"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
         </receiver>
 
+        <receiver android:name="com.zubair.alarmmanager.receivers.BootCompleteReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+
         <service android:name=".broadcastReciever.AlarmService"
-            android:exported="true"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="true"/>
 
     </application>
 

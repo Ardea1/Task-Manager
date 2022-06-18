@@ -32,6 +32,10 @@ android {
         }
     }
 
+//    allprojects {
+//        buildDir = "${rootProject.rootDir}/build/${project.name}"
+//    }
+
     buildFeatures {
         viewBinding true
     }
@@ -73,7 +77,7 @@ dependencies {
     implementation 'com.github.instacart.truetime-android:library:3.5'
     implementation 'com.github.instacart.truetime-android:library-extension-rx:3.5'
 
-    // implementation 'com.github.zubairehman:AlarmManager:v1.2.0-alpha01'
+     implementation 'com.github.zubairehman:AlarmManager:v1.2.0-alpha01'
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'

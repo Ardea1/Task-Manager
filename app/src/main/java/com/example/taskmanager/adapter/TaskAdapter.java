@@ -171,7 +171,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 super.onPostExecute(tasks);
                 removeAtPosition(position);
                 setRefreshListener.refresh();
-                setRefreshListener2.refresh();
             }
         }
         GetSavedTasks savedTasks = new GetSavedTasks();

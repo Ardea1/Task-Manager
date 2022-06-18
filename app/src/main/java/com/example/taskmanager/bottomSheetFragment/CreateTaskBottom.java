@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import butterknife.BindView;
+// Подробный обзор возможностей ButterKnife https://startandroid.ru/ru/blog/470-butter-knife.html
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

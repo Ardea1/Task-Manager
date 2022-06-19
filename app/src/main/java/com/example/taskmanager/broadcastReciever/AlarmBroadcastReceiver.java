@@ -3,6 +3,7 @@ package com.example.taskmanager.broadcastReciever;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.example.taskmanager.activity.AlarmActivity;
 
@@ -25,6 +26,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         i.putExtra("TIME", time);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
+
+        Toast.makeText(context, "Будильник сработал", Toast.LENGTH_LONG).show();
     }
 
 

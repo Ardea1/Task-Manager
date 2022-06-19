@@ -28,8 +28,8 @@ public interface OnDataBaseAction {
     Task selectDataFromAnId(int taskId);
 
     @Query("UPDATE Task SET taskTitle = :taskTitle, taskDescription = :taskDescription, date = :taskDate, " +
-            "lastAlarm = :taskTime, event = :taskEvent WHERE taskId = :taskId")
+            "lastAlarm = :taskTime, category = :taskCategory WHERE taskId = :taskId")
     void updateAnExistingRow(int taskId, String taskTitle, String taskDescription , String taskDate, String taskTime,
-                             String taskEvent);
+                             String taskCategory);
 
 }

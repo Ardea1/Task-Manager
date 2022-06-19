@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/electrolize"
-                android:text="МЕНЕДЖЕР ЗАДАЧ"
+                android:text="ВСЕ ЗАДАЧИ"
                 android:textColor="#FF9800"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -38,6 +38,15 @@
             android:layout_height="30dp"
             android:layout_gravity="center|right"
             app:srcCompat="@drawable/calendar_icon_large" />
+
+        <ImageView
+            android:id="@+id/filter"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="50dp"
+            android:backgroundTint="#FF9800"
+            app:srcCompat="@drawable/filter" />
 
     </FrameLayout>
 

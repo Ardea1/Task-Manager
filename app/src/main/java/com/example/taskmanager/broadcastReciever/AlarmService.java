@@ -53,7 +53,7 @@ public class AlarmService extends Service {
                 .setContentText("Message")// сообщение для уведомления
                 .setAutoCancel(true); // очистить уведомление после клика
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
         mBuilder.setContentIntent(pi);
         mNotificationManager.notify(0, mBuilder.build());
     }

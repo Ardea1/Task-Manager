@@ -12,12 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.taskmanager.R;
 import com.example.taskmanager.activity.MainActivity;
 import com.example.taskmanager.bottomSheetFragment.CreateTaskBottom;
@@ -72,6 +70,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.title.setText(task.getTaskTitle());
         holder.description.setText(task.getTaskDescrption());
         holder.time.setText(task.getLastAlarm());
+        holder.category.setText(task.getCategory());
         holder.status.setText(task.isComplete() ? "ВЫПОЛНЕНО" : "В ПРОЦЕССЕ");
         holder.options.setOnClickListener(view -> showPopUpMenu(view, position));
         holder.title.setOnClickListener(view -> showTask(view, position));
@@ -101,7 +100,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
-                case R.id.menuDelete:
+                case R.id.menuCompletedTasks:
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.AppTheme_Dialog);
                     alertDialogBuilder.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
                             setPositiveButton(R.string.yes, (dialog, which) -> {
@@ -109,7 +108,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                             })
                             .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
                     break;
-                case R.id.menuUpdate:
+                case R.id.tasksProgress:
                     CreateTaskBottom createTaskBottomSheetFragment = new CreateTaskBottom();
                     createTaskBottomSheetFragment.setTaskId(task.getTaskId(), true, context, context);
                     createTaskBottomSheetFragment.show(context.getSupportFragmentManager(), createTaskBottomSheetFragment.getTag());
@@ -200,6 +199,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         ImageView options;
         @BindView(R.id.time)
         TextView time;
+        @BindView(R.id.category)
+        TextView category;
 
         TaskViewHolder(@NonNull View view) {
             super(view);

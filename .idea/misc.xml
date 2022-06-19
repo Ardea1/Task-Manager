@@ -14,6 +14,8 @@
         <entry key="..\:/TaskManager/app/src/main/res/layout/fragment_task.xml" value="0.5541666666666667" />
         <entry key="..\:/TaskManager/app/src/main/res/layout/item_task.xml" value="0.4691358024691358" />
         <entry key="..\:/TaskManager/app/src/main/res/menu/menu.xml" value="0.5541666666666667" />
+        <entry key="..\:/TaskManager/app/src/main/res/menu/menuFilter.xml" value="0.5541666666666667" />
+        <entry key="..\:/TaskManager/app/src/main/res/menu/menu_filter.xml" value="0.5541666666666667" />
       </map>
     </option>
   </component>

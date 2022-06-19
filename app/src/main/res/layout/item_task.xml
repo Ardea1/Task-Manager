@@ -122,6 +122,18 @@
                 tools:text="" />
 
             <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.5"
+                android:fontFamily="@font/electrolize"
+                android:singleLine="true"
+                android:textColor="#FF9800"
+                android:textSize="12sp"
+                tools:text="" />
+
+            <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

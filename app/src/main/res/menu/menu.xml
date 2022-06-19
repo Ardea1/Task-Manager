@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuDelete"
+        android:id="@+id/menuCompletedTasks"
         android:title="Удалить"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menuUpdate"
+        android:id="@+id/tasksProgress"
         android:title="Редактировать"
         app:showAsAction="ifRoom" />
     <item

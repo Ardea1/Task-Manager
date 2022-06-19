@@ -144,12 +144,12 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/electrolize"
-            android:text="Добавить событие"
+            android:text="Категория"
             android:textColor="#FF9800"
             tools:ignore="MissingPrefix" />
 
         <EditText
-            android:id="@+id/taskEvent"
+            android:id="@+id/taskCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

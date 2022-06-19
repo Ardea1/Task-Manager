@@ -1,5 +1,6 @@
 package com.example.taskmanager.activity;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -50,6 +52,8 @@ public class MainActivity extends BaseActivity implements CreateTaskBottom.setRe
     ImageView noDataImage;
     @BindView(R.id.calendar)
     ImageView calendar;
+    @BindView(R.id.filter)
+    ImageView filter;
 
 
     @Override
@@ -78,6 +82,9 @@ public class MainActivity extends BaseActivity implements CreateTaskBottom.setRe
         calendar.setOnClickListener(view -> {
             ShowCalendarBottom showCalendarViewBottomSheet = new ShowCalendarBottom();
             showCalendarViewBottomSheet.show(getSupportFragmentManager(), showCalendarViewBottomSheet.getTag());
+        });
+
+        filter.setOnClickListener(view -> {showPopUpMenuFilter(view);
         });
 
         getSavedTasks();
@@ -116,6 +123,32 @@ public class MainActivity extends BaseActivity implements CreateTaskBottom.setRe
 
         GetSavedTasks savedTasks = new GetSavedTasks();
         savedTasks.execute();
+    }
+
+    public void showPopUpMenuFilter(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_filter, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menuCompletedTasks:
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
+                    alertDialogBuilder.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
+                            setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                    break;
+                case R.id.tasksProgress:
+                    AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
+                    alertDialogBuilder2.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
+                            setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                    break;
+                case R.id.allTasks:
+                    AlertDialog.Builder alertDialogBuilder3 = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
+                    alertDialogBuilder3.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
+                            setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                    break;
+            }
+            return false;
+        });
+        popupMenu.show();
     }
 
     @Override

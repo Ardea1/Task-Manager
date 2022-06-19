@@ -67,6 +67,8 @@ public class ShowTask extends BottomSheetDialogFragment {
     TextView description;
     @BindView(R.id.timeTask)
     TextView time;
+    @BindView(R.id.category)
+    TextView category;
 
     @BindView(R.id.back)
     ImageView back;
@@ -153,6 +155,7 @@ public class ShowTask extends BottomSheetDialogFragment {
         description.setText(task.getTaskDescrption());
         date.setText(task.getDate());
         time.setText(task.getLastAlarm());
+        category.setText(task.getCategory());
 
         String[] items1 = outputDateString.split(" ");
         String day1 = items1[0];

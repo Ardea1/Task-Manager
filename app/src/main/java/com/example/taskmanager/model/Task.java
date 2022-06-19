@@ -27,8 +27,8 @@ public class Task implements Serializable {
     String secondAlarmTime;
     @ColumnInfo(name = "lastAlarm")
     String lastAlarm;
-    @ColumnInfo(name = "event")
-    String event;
+    @ColumnInfo(name = "category")
+    String category;
 
     // Конструктор класса Task
     public Task() {
@@ -39,12 +39,12 @@ public class Task implements Serializable {
         return isComplete;
     }
 
-    public String getEvent() {
-        return event;
+    public String getCategory() {
+        return category;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setComplete(boolean complete) {

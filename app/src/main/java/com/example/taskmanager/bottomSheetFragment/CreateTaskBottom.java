@@ -62,8 +62,8 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
     EditText taskDate;
     @BindView(R.id.taskTime)
     EditText taskTime;
-    @BindView(R.id.taskEvent)
-    EditText taskEvent;
+    @BindView(R.id.taskCategory)
+    EditText taskCategory;
     @BindView(R.id.addTask)
     Button addTask;
     int taskId;
@@ -168,22 +168,22 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             Toast.makeText(activity, "Пожалуйста, введите правильный заголовок", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if(addTaskDescription.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Пожалуйста, введите корректное описание", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(taskDate.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Пожалуйста, введите дату", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(taskTime.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Пожалуйста, введите время", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        else if(taskEvent.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(activity, "Пожалуйста, введите событие", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        else if(addTaskDescription.getText().toString().equalsIgnoreCase("")) {
+//            Toast.makeText(activity, "Пожалуйста, введите корректное описание", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        else if(taskDate.getText().toString().equalsIgnoreCase("")) {
+//            Toast.makeText(activity, "Пожалуйста, введите дату", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        else if(taskTime.getText().toString().equalsIgnoreCase("")) {
+//            Toast.makeText(activity, "Пожалуйста, введите время", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        else if(taskEvent.getText().toString().equalsIgnoreCase("")) {
+//            Toast.makeText(activity, "Пожалуйста, введите событие", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
         else {
             return true;
         }
@@ -205,7 +205,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
                 createTask.setTaskDescrption(addTaskDescription.getText().toString());
                 createTask.setDate(taskDate.getText().toString());
                 createTask.setLastAlarm(taskTime.getText().toString());
-                createTask.setEvent(taskEvent.getText().toString());
+                createTask.setCategory(taskCategory.getText().toString());
 
                 if (!isEdit)
                     DatabaseClient.getInstance(getActivity()).getAppDatabase()
@@ -218,7 +218,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
                                     addTaskDescription.getText().toString(),
                                     taskDate.getText().toString(),
                                     taskTime.getText().toString(),
-                                    taskEvent.getText().toString());
+                                    taskCategory.getText().toString());
 
                 return null;
             }
@@ -270,11 +270,11 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
             alarmIntent.putExtra("DATE", taskDate.getText().toString());
             alarmIntent.putExtra("TIME", taskTime.getText().toString());
             // Объект PendingIntent, определяющий действие, выполняемое при запуске сигнализации
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_MUTABLE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // Аналогично #set, но этому сигналу тревоги будет разрешено выполняться, даже когда система
                 // находится в режиме ожидания с низким энергопотреблением
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     // setExact() - в API 19 (Kitkat) метод set() заменили на новый метод с теми же параметрами
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
@@ -284,9 +284,9 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
                 }
                 count ++;
 
-                PendingIntent intent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_IMMUTABLE);
+                PendingIntent intent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_MUTABLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
                     } else {
@@ -325,7 +325,7 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
         addTaskDescription.setText(task.getTaskDescrption());
         taskDate.setText(task.getDate());
         taskTime.setText(task.getLastAlarm());
-        taskEvent.setText(task.getEvent());
+        taskCategory.setText(task.getCategory());
     }
 
     public interface setRefreshListener {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/allTasks"
+        android:title="Все задачи"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuCompletedTasks"
+        android:title="Завершённые задачи"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tasksProgress"
+        android:title="В процессе"
+        app:showAsAction="ifRoom" />
+</menu>

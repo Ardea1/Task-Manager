@@ -41,6 +41,7 @@ public class AlarmService extends Service {
     }
 
     protected void onHandleIntent(Intent intent) {
+
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -55,7 +56,7 @@ public class AlarmService extends Service {
                 .setSmallIcon(R.mipmap.ic_launcher) // значок уведомления
                 .setContentTitle("Уведомление") // заголовок для уведомления
                 .setContentText("Будильник")// сообщение для уведомления
-                .setAutoCancel(true); // очистить уведомление после клика
+                .setAutoCancel(false); // очистить уведомление после клика
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
         mBuilder.setContentIntent(pi);

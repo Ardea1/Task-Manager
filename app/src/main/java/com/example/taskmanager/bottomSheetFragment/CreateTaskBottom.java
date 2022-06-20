@@ -285,16 +285,17 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
                 }
                 count ++;
 
-                PendingIntent intent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_MUTABLE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
-                    } else {
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
-                    }
-                }
-                count ++;
+//                // дополнительный будильник. Уведомляет за 10 минут
+//                PendingIntent intent = PendingIntent.getBroadcast(activity, count, alarmIntent, PendingIntent.FLAG_MUTABLE);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
+//                    } else {
+//                        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() - 600000, intent);
+//                    }
+//                }
+//                count ++;
             }
         } catch (Exception e) {
             e.printStackTrace();

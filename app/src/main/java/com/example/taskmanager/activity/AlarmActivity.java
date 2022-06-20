@@ -1,10 +1,17 @@
 package com.example.taskmanager.activity;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.app.NotificationCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.taskmanager.R;

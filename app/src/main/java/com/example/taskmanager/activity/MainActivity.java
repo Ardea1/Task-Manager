@@ -137,13 +137,13 @@ public class MainActivity extends BaseActivity implements CreateTaskBottom.setRe
                     break;
                 case R.id.tasksProgress:
                     AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
-                    alertDialogBuilder2.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
-                            setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                    alertDialogBuilder2.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete)
+                            .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
                     break;
                 case R.id.allTasks:
                     AlertDialog.Builder alertDialogBuilder3 = new AlertDialog.Builder(this, R.style.AppTheme_Dialog);
-                    alertDialogBuilder3.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
-                            setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                    alertDialogBuilder3.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete)
+                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
                     break;
             }
             return false;

@@ -172,10 +172,10 @@ public class CreateTaskBottom extends BottomSheetDialogFragment {
 //            Toast.makeText(activity, "Пожалуйста, введите корректное описание", Toast.LENGTH_SHORT).show();
 //            return false;
 //        }
-//        else if(taskDate.getText().toString().equalsIgnoreCase("")) {
-//            Toast.makeText(activity, "Пожалуйста, введите дату", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
+        else if(taskDate.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(activity, "Пожалуйста, введите дату", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 //        else if(taskTime.getText().toString().equalsIgnoreCase("")) {
 //            Toast.makeText(activity, "Пожалуйста, введите время", Toast.LENGTH_SHORT).show();
 //            return false;

@@ -31,7 +31,6 @@
                 android:layout_gravity="center"
                 android:alpha="0.5"
                 android:fontFamily="@font/electrolize"
-                android:text="Tue"
                 android:textColor="#FF9800"
                 android:textSize="18sp" />
 
@@ -41,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/electrolize"
-                android:text="18"
                 android:textColor="#FF9800"
                 android:textSize="24sp" />
 
@@ -52,7 +50,6 @@
                 android:layout_gravity="center"
                 android:alpha="0.5"
                 android:fontFamily="@font/electrolize"
-                android:text="Nov"
                 android:textColor="#FF9800"
                 android:textSize="18sp" />
 
@@ -144,7 +141,6 @@
                 android:paddingTop="5dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"
-                android:text="ВЫПОЛНЕНО"
                 android:textColor="#FF9800"
                 android:textSize="12sp" />
 

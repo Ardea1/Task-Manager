@@ -37,6 +37,13 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         date = intent.getStringExtra("DATE");
         time = intent.getStringExtra("TIME");
 
+        Intent i = new Intent(context, AlarmActivity.class);
+        i.putExtra("TITLE", title);
+        i.putExtra("DESC", desc);
+        i.putExtra("DATE", date);
+        i.putExtra("TIME", time);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         if(intent.getStringExtra("myAction") != null &&
                 intent.getStringExtra("myAction").equals("notify")){
             NotificationManager manager =
@@ -49,27 +56,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                     .setOngoing(false)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);
-            Intent i = new Intent(context, AlarmActivity.class);
-            PendingIntent pendingIntent =
-                    PendingIntent.getActivity(
-                            context,
-                            0,
-                            i,
-                            PendingIntent.FLAG_ONE_SHOT
-                    );
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, lastId, i, PendingIntent.FLAG_MUTABLE);
             builder.setContentIntent(pendingIntent);
-            manager.notify(12345, builder.build());
+            manager.notify(lastId, builder.build());
+            lastId++;
         }
 
-
+        context.startActivity(i);
        Toast.makeText(context, "Будильник", Toast.LENGTH_SHORT).show();
 
-        Intent i = new Intent(context, AlarmActivity.class);
-        i.putExtra("TITLE", title);
-        i.putExtra("DESC", desc);
-        i.putExtra("DATE", date);
-        i.putExtra("TIME", time);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
+
     }
 }

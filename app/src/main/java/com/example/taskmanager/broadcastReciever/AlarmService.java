@@ -61,6 +61,8 @@ public class AlarmService extends Service {
         PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
         mBuilder.setContentIntent(pi);
         mNotificationManager.notify(lastId, mBuilder.build());
+
+
         lastId ++;
     }
 

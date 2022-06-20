@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class AlarmActivity extends BaseActivity {
     @BindView(R.id.closeButton)
     Button closeButton;
     MediaPlayer mediaPlayer;
+    private Vibrator vibrator;
 
     public static AlarmActivity instance() {
         return inst;
@@ -47,6 +49,8 @@ public class AlarmActivity extends BaseActivity {
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.notification);
         mediaPlayer.start();
+
+        vibrator = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         if(getIntent().getExtras() != null) {
             title.setText(getIntent().getStringExtra("TITLE"));
@@ -63,5 +67,6 @@ public class AlarmActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mediaPlayer.release();
+        vibrator.cancel();
     }
 }

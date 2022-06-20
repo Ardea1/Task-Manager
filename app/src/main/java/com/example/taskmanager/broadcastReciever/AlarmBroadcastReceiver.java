@@ -26,7 +26,6 @@ import com.example.taskmanager.bottomSheetFragment.CreateTaskBottom;
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     String title, desc, date, time;
-    AlarmService alarmService;
     private int lastId = 0; //постоянно увеличивающееся поле, уникальный номер каждого уведомления
 
     @Override
@@ -44,24 +43,24 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         i.putExtra("TIME", time);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        if(intent.getStringExtra("myAction") != null &&
-                intent.getStringExtra("myAction").equals("notify")){
-            NotificationManager manager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "YOUR_CHANNEL_ID")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("my title")
-                    .setContentText("my message")
-                    .setOngoing(false)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true);
-
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, lastId, i, PendingIntent.FLAG_MUTABLE);
-            builder.setContentIntent(pendingIntent);
-            manager.notify(lastId, builder.build());
-            lastId++;
-        }
+//        if(intent.getStringExtra("myAction") != null &&
+//                intent.getStringExtra("myAction").equals("notify")){
+//            NotificationManager manager =
+//                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "YOUR_CHANNEL_ID")
+//                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .setContentTitle(title)
+//                    .setContentText(desc)
+//                    .setOngoing(false)
+//                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                    .setAutoCancel(true);
+//
+//            PendingIntent pendingIntent = PendingIntent.getActivity(context, lastId, i, PendingIntent.FLAG_MUTABLE);
+//            builder.setContentIntent(pendingIntent);
+//            manager.notify(lastId, builder.build());
+//            lastId++;
+//        }
 
         context.startActivity(i);
        Toast.makeText(context, "Будильник", Toast.LENGTH_SHORT).show();

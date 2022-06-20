@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:background="@drawable/_2_123015_processing_plus_icon_png_orange_clipart__"
+            android:background="@android:drawable/ic_input_add"
+            android:backgroundTint="#FF9800"
             android:scaleType="centerCrop" />
 
         <TextView
